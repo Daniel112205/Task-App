@@ -1,15 +1,12 @@
 import axios from 'axios'
-
 const baseUrl = 'https://todos-go.herokuapp.com/api/todos';
 
-const Create = newTask => {
+const Delete = id => {
   const promise = axios({
     method: 'POST',
-    url: `${baseUrl}`,
-    data: newTask
-  });
-
+    url: `${baseUrl}/${id}`,
+  })
   return promise;
 }
 
-export default Create;
+export default Delete

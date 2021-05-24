@@ -5,8 +5,10 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import Read from './services/Read';
 import RegisterTask from './components/RegisterTask';
+import Delete from './services/Delete';
 function App() {
   const [taskToCreate, setTaskToCreate] = useState(null);
+  const [taskToDelete, setTaskToDelete] = useState(null)
   const [data, setData] = useState([])
   useEffect(()=>{
     Read()
@@ -27,15 +29,38 @@ function App() {
       )
     }
   }, [taskToCreate])
+
+  useEffect(() => {
+    if (taskToDelete) {
+      Delete(taskToDelete).then(
+        () => {
+          setData(prev => {
+            return prev.filter(value => value.id !== taskToDelete);
+          })
+        },
+        err => {
+          console.error(err)
+        }
+      )
+    }
+  }, [taskToDelete])
   
   const handleCreate = values => {
     setTaskToCreate(values)
   }
+  
+  const handleDelete = id => {
+    setTaskToDelete(id)
+    console.log(id);
+  }
+
   const list = data.map(value => (
     <TodoContainer 
       task={value.task}
-      key={value.task}
-      student={value.student}      
+      key={value.id}
+      student={value.student}
+      id={value.id}
+      handleDelete={handleDelete}      
     />
   ))
   return (
