@@ -1,12 +1,7 @@
-import axios from 'axios';
 import React from 'react';
 import { useEffect, useState } from "react";
 
-const baseUrl = 'https://todos-go.herokuapp.com/api/todos';
-
 const TodoContainer = () => {
-    const [data, setData] = useState([]);
-    
     useEffect(()=>{
         axios.get(`${baseUrl}`)
         .then(function (response){
