@@ -1,10 +1,11 @@
 import { useForm } from 'react-hook-form'
 
 const RegisterTask = ({handleCreate}) => {
-  const { handleSubmit, register } = useForm()
+  const { handleSubmit, register, reset } = useForm()
 
   const onSubmit = values => {
     handleCreate(values)
+    reset()
   }
   return (
     <form
