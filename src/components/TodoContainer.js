@@ -1,27 +1,10 @@
 import React from 'react';
-import { useEffect, useState } from "react";
 
-const TodoContainer = () => {
-    useEffect(()=>{
-        axios.get(`${baseUrl}`)
-        .then(function (response){
-            setData(response.data.todos);            
-        })
-    },[]);
-    const list = data.map(value => {
-        return (
-            <>
-            <h5 key={value.id}>
-                {value.task}--
-                {value.student}
-            </h5>
-            </>
-        )
-    })
+const TodoContainer = ({task, student}) => {
     return (
         <div>
-            <h2>Taks</h2>
-            {list}
+            <h5>{task}</h5>
+            <h5>{student}</h5>
         </div>
     )
 }
