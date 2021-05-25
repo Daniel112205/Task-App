@@ -6,10 +6,15 @@ import { useEffect, useState } from "react";
 import Read from './services/Read';
 import RegisterTask from './components/RegisterTask';
 import Delete from './services/Delete';
+import TodoItem from './components/TodoItem';
+import Update from './services/Update';
+
 function App() {
   const [taskToCreate, setTaskToCreate] = useState(null);
-  const [taskToDelete, setTaskToDelete] = useState(null)
-  const [data, setData] = useState([])
+  const [taskToDelete, setTaskToDelete] = useState(null);
+  const [dataUpdate, setDataUpdate] = useState(null);
+  const [data, setData] = useState([]);
+  
   useEffect(()=>{
     Read()
     .then(response =>{
@@ -45,12 +50,31 @@ function App() {
     }
   }, [taskToDelete])
   
+  useEffect(() => {
+    if (dataUpdate) {
+        Update(dataUpdate).then(
+        () => {
+          setData(prev => {
+            return prev.filter(value => value.id !== dataUpdate);
+          })
+        },
+        err => {
+          console.error(err)
+        }
+      )
+    }
+  }, [dataUpdate, data])
+  
   const handleCreate = values => {
     setTaskToCreate(values)
   }
   
   const handleDelete = id => {
     setTaskToDelete(id)
+    console.log(id);
+  }
+  const handleUpdate = id => {
+    setDataUpdate(id)
     console.log(id);
   }
 
@@ -60,15 +84,23 @@ function App() {
       key={value.id}
       student={value.student}
       id={value.id}
-      handleDelete={handleDelete}      
+      isCompleted={value.isCompleted}
+      handleDelete={handleDelete}
+      handleUpdate={handleUpdate}      
     />
   ))
   return (
     <div className="App">
       <header className="App-header">
-        <RegisterTask handleCreate={handleCreate}/>
-        <h2>Taks</h2>
+        {dataUpdate && (
+          <TodoItem />
+        )}
+        {!dataUpdate && (
+          <RegisterTask handleCreate={handleCreate}/>
+        )}
+        <h2>Task</h2>
         {list}
+        
       </header>
     </div>
   );

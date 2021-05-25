@@ -3,7 +3,7 @@ const baseUrl = 'https://todos-go.herokuapp.com/api/todos';
 
 const Delete = id => {
   const promise = axios({
-    method: 'POST',
+    method: 'DELETE',
     url: `${baseUrl}/${id}`,
   })
   return promise;
