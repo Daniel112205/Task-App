@@ -7,7 +7,7 @@ import Read from './services/Read';
 import RegisterTask from './components/RegisterTask';
 import Delete from './services/Delete';
 import TodoItem from './components/TodoItem';
-import Update from './services/Update';
+// import Update from './services/Update';
 
 function App() {
   const [taskToCreate, setTaskToCreate] = useState(null);
@@ -49,22 +49,7 @@ function App() {
       )
     }
   }, [taskToDelete])
-  
-  useEffect(() => {
-    if (dataUpdate) {
-        Update(dataUpdate).then(
-        () => {
-          setData(prev => {
-            return prev.filter(value => value.id !== dataUpdate);
-          })
-        },
-        err => {
-          console.error(err)
-        }
-      )
-    }
-  }, [dataUpdate, data])
-  
+   
   const handleCreate = values => {
     setTaskToCreate(values)
   }
@@ -76,7 +61,16 @@ function App() {
   const handleUpdate = id => {
     setDataUpdate(id)
     console.log(id);
+    <TodoItem 
+    data={data}
+    id={dataUpdate}
+    />
   }
+  // useEffect(() => {
+  //   if (dataUpdate) {
+     
+  //   }
+  // }, [dataUpdate,data])
 
   const list = data.map(value => (
     <TodoContainer 
@@ -89,14 +83,12 @@ function App() {
       handleUpdate={handleUpdate}      
     />
   ))
+ 
   return (
     <div className="App">
       <header className="App-header">
-        {dataUpdate && (
-          <TodoItem />
-        )}
         {!dataUpdate && (
-          <RegisterTask handleCreate={handleCreate}/>
+          <RegisterTask handleCreate={handleCreate}/> 
         )}
         <h2>Task</h2>
         {list}
