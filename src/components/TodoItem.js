@@ -6,9 +6,8 @@ const TodoItem = ({data, handleUpdate}) => {
     useEffect(()=> {
         if (data) {
             setDataValue(data);
-            console.log('success',dataValue);
         }
-    },[data, dataValue])
+    },[data])
     const list = dataValue.map(value => (
         <UpdateItem
           task={value.task}
