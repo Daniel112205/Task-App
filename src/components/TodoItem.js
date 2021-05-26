@@ -1,22 +1,28 @@
+import { useEffect, useState } from "react";
+import UpdateItem from "./UpdateItem";
 
-const TodoItem = ({data,key, handleUpdate}) => {
-    console.log('access',key);
-    // eslint-disable-next-line
-    data.map(value => {
-        if(value.id === key){
-            return(
-                <div style={{display: 'flex'}}>
-                    
-                    <h2>Task: {value.task}</h2>
-                    <h5>Student: {value.student}</h5>
-                    <label className="switch">
-                        {value.isCompleted ? "Completed" : "Pending"}
-                        <input type="checkbox" />
-                        <button onChange={() => handleUpdate(value.id)}><span className="slider round"></span></button> 
-                    </label>
-                </div>
-            );
+const TodoItem = ({data, handleUpdate}) => {
+    const [dataValue, setDataValue] = useState(data);
+    useEffect(()=> {
+        if (data) {
+            setDataValue(data);
+            console.log('success',dataValue);
         }
-    })
+    },[data, dataValue])
+    const list = dataValue.map(value => (
+        <UpdateItem
+          task={value.task}
+          key={value.id}
+          student={value.student}
+          id={value.id}
+          isCompleted={value.isCompleted}
+          handleUpdate={handleUpdate}      
+        />
+      ))
+    return(
+        <div style={{display: 'flex'}}>
+            {list}
+        </div>
+    );
 }
 export default TodoItem;

@@ -56,22 +56,12 @@ function App() {
   
   const handleDelete = id => {
     setTaskToDelete(id)
-    console.log(id);
   }
+
   const handleUpdate = id => {
     setDataUpdate(id)
-    console.log(id);
-    <TodoItem 
-    data={data}
-    id={dataUpdate}
-    />
   }
-  // useEffect(() => {
-  //   if (dataUpdate) {
-     
-  //   }
-  // }, [dataUpdate,data])
-
+  
   const list = data.map(value => (
     <TodoContainer 
       task={value.task}
@@ -87,13 +77,19 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <h1>Task App</h1>
+        {dataUpdate && 
+          <TodoItem 
+            data={data}
+          />
+        }
         {!dataUpdate && (
           <RegisterTask handleCreate={handleCreate}/> 
         )}
-        <h2>Task</h2>
-        {list}
-        
       </header>
+      <h2>Task</h2>
+        
+        {list}
     </div>
   );
 }

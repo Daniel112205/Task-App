@@ -2,14 +2,9 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 40vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,7 +12,24 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
+input{
+  width: 100%;
+}
+button {
+  border-radius: 2rem;
+  background-color: teal;
+  border: solid teal;
+  color: white;
+  padding: 5px;
+  margin: .5rem;
+}
+.container {
+  max-width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: 8rem;
+}
 .switch {
   position: relative;
   display: inline-block;
@@ -65,17 +77,33 @@ input:focus + .slider {
   box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
 .slider.round {
   border-radius: 34px;
+  display: block;
 }
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+table {
+  width:100%;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+#t01 tr:nth-child(even) {
+  background-color: #eee;
+}
+#t01 tr:nth-child(odd) {
+ background-color: #fff;
+}
+#t01 th {
+  background-color: black;
+  color: white;
 }
